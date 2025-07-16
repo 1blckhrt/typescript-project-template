@@ -1,0 +1,9 @@
+# auto generated
+LICENSE
+
+# dependencies
+node_modules
+pnpm-lock.yaml
+
+# production
+dist
