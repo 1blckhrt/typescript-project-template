@@ -43,7 +43,7 @@
               prettier
               ;
           }
-          ++ self.checks.${system}.pre-commit.enabledPackages;
+          ++ self.checks.${system}.git-hooks.enabledPackages;
 
         shellHook = ''
           export PATH="./node_modules/.bin:$PATH"
@@ -53,7 +53,7 @@
             pnpm install
           fi
 
-          ${self.checks.${system}.pre-commit.shellHook or ""}
+          ${self.checks.${system}.git-hooks.shellHook or ""}
         '';
       };
     });
@@ -62,20 +62,28 @@
       pkgs,
       system,
     }: {
-      pre-commit = hooks.lib.${system}.run {
+      git-hooks = hooks.lib.${system}.run {
         src = ./.;
 
         hooks = {
           eslint = {
             enable = true;
+            types = ["pre-commit"];
             entry = "pnpm exec eslint --fix";
             files = "\\.(ts|js|tsx|jsx)$";
           };
 
           prettier = {
             enable = true;
+            types = ["pre-commit"];
             entry = "pnpm exec prettier --ignore-unknown --write";
             excludes = ["flake.lock"];
+          };
+
+          commitlint = {
+            enable = true;
+            types = ["commit-msg"];
+            entry = "pnpm exec commitlint --edit $1";
           };
 
           convco.enable = true;
@@ -83,6 +91,7 @@
         };
       };
     });
+
     formatter = forEachSupportedSystem ({pkgs, ...}: pkgs.alejandra);
   };
 }
