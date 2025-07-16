@@ -7,3 +7,9 @@ pnpm-lock.yaml
 
 # production
 dist
+
+# nix
+.direnv/
+.pre-commit-config.yaml
+flake.lock
+flake.nix
