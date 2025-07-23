@@ -63,27 +63,26 @@
       system,
     }: {
       git-hooks = hooks.lib.${system}.run {
-        src = ./.;
+        src = builtins.path {
+          path = ./.;
+          name = "source";
+        };
+
+        enabledPackages = [
+          pkgs.nodePackages.pnpm
+        ];
 
         hooks = {
           eslint = {
             enable = true;
-            types = ["pre-commit"];
             entry = "pnpm exec eslint --fix";
             files = "\\.(ts|js|tsx|jsx)$";
           };
 
           prettier = {
             enable = true;
-            types = ["pre-commit"];
             entry = "pnpm exec prettier --ignore-unknown --write";
             excludes = ["flake.lock"];
-          };
-
-          commitlint = {
-            enable = true;
-            types = ["commit-msg"];
-            entry = "pnpm exec commitlint --edit $1";
           };
 
           convco.enable = true;
