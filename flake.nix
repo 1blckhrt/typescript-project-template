@@ -1,5 +1,5 @@
 {
-  description = "Nix flake for a TypeScript project template with pre-configured development environment and checks.";
+  description = "TypeScript project with devShell and pre-commit hooks (eslint, prettier)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -23,7 +23,7 @@
       nixpkgs.lib.genAttrs supportedSystems (system:
         f {
           pkgs = import nixpkgs {inherit system;};
-          inherit system;
+          system = system;
         });
   in {
     devShells = forEachSupportedSystem ({
@@ -31,30 +31,16 @@
       system,
     }: {
       default = pkgs.mkShell {
-        packages =
-          builtins.attrValues {
-            inherit
-              (pkgs.nodePackages)
-              nodejs
-              pnpm
-              typescript
-              typescript-language-server
-              eslint
-              prettier
-              ;
-          }
-          ++ self.checks.${system}.git-hooks.enabledPackages;
+        packages = with pkgs.nodePackages; [
+          nodejs
+          pnpm
+          eslint
+          prettier
+          typescript
+          typescript-language-server
+        ];
 
-        shellHook = ''
-          export PATH="./node_modules/.bin:$PATH"
-
-          if [ ! -d node_modules ]; then
-            echo "📦 Installing pnpm dependencies..."
-            pnpm install
-          fi
-
-          ${self.checks.${system}.git-hooks.shellHook or ""}
-        '';
+        inherit (self.checks.${system}.pre-commit) shellHook;
       };
     });
 
@@ -62,11 +48,8 @@
       pkgs,
       system,
     }: {
-      git-hooks = hooks.lib.${system}.run {
-        src = builtins.path {
-          path = ./.;
-          name = "source";
-        };
+      pre-commit = hooks.lib.${system}.run {
+        src = ./.;
 
         enabledPackages = [
           pkgs.nodePackages.pnpm
@@ -75,13 +58,14 @@
         hooks = {
           eslint = {
             enable = true;
-            entry = "pnpm exec eslint --fix";
+            entry = "pnpx eslint --fix";
             files = "\\.(ts|js|tsx|jsx)$";
           };
 
           prettier = {
             enable = true;
-            entry = "pnpm exec prettier --ignore-unknown --write";
+            entry = "pnpx prettier --write --ignore-unknown";
+            files = "\\.(ts|js|tsx|jsx|json|css|md)$";
             excludes = ["flake.lock"];
           };
 
