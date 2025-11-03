@@ -10,16 +10,25 @@ yarn.lock
 .DS_Store
 
 # IDE
-.vscode
 .idea
 *.swp
 *.swo
 
 # nix
 .direnv/
-.pre-commit-config.yaml
 
 # tokens
 *.env
 env.json
 config.json
+
+# db
+*.db
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# pre-commit
+.pre-commit-config.yaml

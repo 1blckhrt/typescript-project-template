@@ -1,27 +1,19 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "typescript-nix-project-template",
-  "description": "A template for creating TypeScript projects with a Nix development environment.",
-  "author": "Parker Williams <williams.1691@wright.edu>",
-  "main": "dist/index.js",
-  "type": "module",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsx src/index.ts",
-    "start": "node dist/index.js",
-    "lint": "eslint --fix src",
-    "format": "prettier --write ."
-  },
+  "name": "replaceme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.19.0",
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-angular": "^19.8.1",
-    "@types/node": "^24.0.14",
-    "eslint": "^9.31.0",
-    "eslint-config-neon": "^0.2.7",
-    "lint-staged": "^16.1.2",
+    "@types/node": "^24.10.0",
+    "eslint": "^9.38.0",
+    "eslint-config-neon": "^0.2.9",
+    "eslint-formatter-pretty": "^7.0.0",
     "prettier": "^3.6.2",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
-  },
-  "packageManager": "pnpm@10.12.4"
+    "typescript": "~5.9.3"
+  }
 }
