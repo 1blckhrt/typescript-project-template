@@ -73,7 +73,7 @@
         buildInputs =
           check.enabledPackages
           ++ (builtins.attrValues {
-            inherit (pkgs) nodejs;
+            inherit (pkgs) nodejs_24;
             inherit (pkgs.nodePackages) pnpm;
           });
       };
