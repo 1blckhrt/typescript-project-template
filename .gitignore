@@ -1,34 +1,18 @@
-# dependencies
-node_modules
-dist
-yarn.lock
-
-# logs
-*.log
-
-# OS
-.DS_Store
-
-# IDE
-.idea
-*.swp
-*.swo
-
 # nix
-.direnv/
+/.direnv
+/result
+/.pre-commit-config.yaml
+
+# node
+node_modules/
+dist/
+
+# databases
+*.db
+*.sqlite
+*.sqlite3
 
 # tokens
 *.env
 env.json
 config.json
-
-# db
-*.db
-
-# Devenv
-.devenv*
-devenv.local.nix
-devenv.local.yaml
-
-# pre-commit
-.pre-commit-config.yaml

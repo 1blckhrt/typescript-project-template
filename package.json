@@ -2,18 +2,26 @@
   "$schema": "https://json.schemastore.org/package.json",
   "name": "replaceme",
   "version": "1.0.0",
+  "private": true,
   "description": "",
+  "type": "module",
   "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "fix": "prettier --write . && eslint --ext .ts --fix --format=pretty src",
+    "start": "node src/index.ts",
+    "dev": "tsx --watch ."
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.19.0",
   "devDependencies": {
     "@types/node": "^24.10.0",
     "eslint": "^9.38.0",
     "eslint-config-neon": "^0.2.9",
     "eslint-formatter-pretty": "^7.0.0",
-    "prettier": "^3.6.2",
-    "typescript": "~5.9.3"
+    "prettier": "^3.7.4",
+    "typescript": "~5.9.3",
+    "tsx": "^4.20.6"
   }
 }

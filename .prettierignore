@@ -1,15 +1,25 @@
-# auto generated
-LICENSE
-
-# dependencies
-node_modules
-pnpm-lock.yaml
-
-# production
-dist
-
 # nix
-.direnv/
-.pre-commit-config.yaml
+/.direnv
+/result
+/.envrc
+/.pre-commit-config.yaml
 flake.lock
 flake.nix
+
+# node
+node_modules/
+dist/
+pnpm-lock.yaml
+
+# databases
+*.db
+*.sqlite
+*.sqlite3
+
+# tokens
+*.env
+env.json
+config.json
+
+# auto generated
+LICENSE
